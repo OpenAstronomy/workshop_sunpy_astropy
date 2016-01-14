@@ -7,7 +7,7 @@ def instructor_to_student(instructor_ipynb):
     commented lines.
 
     '''
-    
+
     with open(instructor_ipynb, 'r') as file_instructor:
         notebook = json.load(file_instructor)
 
@@ -28,7 +28,8 @@ def instructor_to_student(instructor_ipynb):
                         source.append(elem)
                 cell['source'] = source
                 cells_student.append(cell)
-
+    if instructor_ipynb.rfind('_Instructor') == -1:
+        raise ValueError("This is not an instructor notebook file")
     student_ipynb = instructor_ipynb.replace('_Instructor', '')
     notebook_student = notebook
     notebook_student['cells'] = cells_student
@@ -40,5 +41,5 @@ def instructor_to_student(instructor_ipynb):
     return
 
 if __name__ == '__main__':
-    instructor_to_student('Units_Quantities_Instructor.ipynb')
+    instructor_to_student('./03-python2-matplotlib-animation_Instructor.ipynb')
 
